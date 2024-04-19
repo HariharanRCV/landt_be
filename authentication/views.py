@@ -28,15 +28,15 @@ class LoginView(APIView):
             print("---------------------------------------")
             if user.username == username and user.password == password:
             # User is authenticated
-                return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
+                return Response({"message": "Login successful", "type": "success"}, status=status.HTTP_200_OK)
             else:
                 # Check if the username exists in the database
                 if User.objects.filter(username=username).exists():
                     # Username exists, but password is incorrect
-                    return Response({"error": "Invalid password"}, status=status.HTTP_401_UNAUTHORIZED)
+                    return Response({"message": "Invalid password", "type": "error"})
                 else:
                     # Username does not exist in the database
-                    return Response({"error": "Invalid username or password"}, status=status.HTTP_401_UNAUTHORIZED)
+                    return Response({"message": "Invalid username or password", "type": "error"})
     
         user = authenticate(username=username, password=password)
         print('user: ',user)
