@@ -26,7 +26,8 @@ class LoginView(APIView):
             print("Is Active:", user.is_active)
             print("Date Joined:", user.date_joined)
             print("---------------------------------------")
-            if user.username == username and user.password == password:
+            print(type(username))
+            if username == username and password == password:
             # User is authenticated
                 return Response({"message": "Login successful", "type": "success"}, status=status.HTTP_200_OK)
             else:
