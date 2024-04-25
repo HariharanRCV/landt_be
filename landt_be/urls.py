@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from authentication.views import LoginView
+from home.views import scan_qr_code
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
+    path('scan-qr/', scan_qr_code, name='scan_qr_code'),
 ]
