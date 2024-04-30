@@ -4,6 +4,8 @@ from PIL import Image
 from io import BytesIO
 from pyzbar.pyzbar import decode
 import json
+import datetime
+from .models import QRCodeData 
 
 @csrf_exempt
 def scan_qr_code(request):
@@ -28,7 +30,18 @@ def scan_qr_code(request):
 
                     # Convert the Python object back to a formatted JSON string
                     formatted_json_data = json.dumps(json_data, indent=4)
-                    print(formatted_json_data)
+                    # print(formatted_json_data)
+
+
+                    qr_code_obj = QRCodeData.objects.create(
+                    product_id=formatted_json_data['PRODUCT ID'],
+                    product_name=formatted_json_data['PRODUCT NAME'],
+                    product_type=formatted_json_data['PRODUCT TYPE'],
+                    weight=formatted_json_data['WEIGHT OF THE PRODUCT'],
+                    manufacturing_date=datetime.datetime.strptime(formatted_json_data['MANUFACTURING DATE'], '%d/%m/%Y').date(),
+                    prize=formatted_json_data['PRICE']
+        )
+                    print("QR data: ", qr_code_obj)
                     return JsonResponse({'qr_data': formatted_json_data})
                 else:
                     return JsonResponse({'error': 'QR code not found or could not be decoded'})
