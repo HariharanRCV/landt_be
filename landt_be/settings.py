@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'landt', 
         'USER': 'root',    
-        'PASSWORD': 'Nomysql#123',
+        'PASSWORD': 'Srec123$',
         'HOST': 'localhost', 
         'PORT': '3306',   
     }
